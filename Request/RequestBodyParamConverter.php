@@ -29,10 +29,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 final class RequestBodyParamConverter implements ParamConverterInterface
 {
-    private $serializer;
+    private \FOS\RestBundle\Serializer\Serializer $serializer;
     private $context = [];
-    private $validator;
-    private $validationErrorsArgument;
+    private ?\Symfony\Component\Validator\Validator\ValidatorInterface $validator;
+    private ?string $validationErrorsArgument;
 
     /**
      * @param string[]|null $groups
@@ -90,9 +90,7 @@ final class RequestBodyParamConverter implements ParamConverterInterface
             );
         } catch (UnsupportedFormatException $e) {
             return $this->throwException(new UnsupportedMediaTypeHttpException($e->getMessage(), $e), $configuration);
-        } catch (JMSSerializerException $e) {
-            return $this->throwException(new BadRequestHttpException($e->getMessage(), $e), $configuration);
-        } catch (SymfonySerializerException $e) {
+        } catch (JMSSerializerException|SymfonySerializerException $e) {
             return $this->throwException(new BadRequestHttpException($e->getMessage(), $e), $configuration);
         }
 
@@ -128,7 +126,7 @@ final class RequestBodyParamConverter implements ParamConverterInterface
             } elseif ('version' === $key) {
                 $context->setVersion($options['version']);
             } elseif ('enableMaxDepth' === $key) {
-                $context->enableMaxDepth($options['enableMaxDepth']);
+                $context->enableMaxDepth();
             } elseif ('serializeNull' === $key) {
                 $context->setSerializeNull($options['serializeNull']);
             } else {
@@ -155,6 +153,6 @@ final class RequestBodyParamConverter implements ParamConverterInterface
             'deep' => false,
         ]);
 
-        return $resolver->resolve(isset($options['validator']) ? $options['validator'] : []);
+        return $resolver->resolve($options['validator'] ?? []);
     }
 }

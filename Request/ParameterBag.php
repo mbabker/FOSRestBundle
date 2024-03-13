@@ -22,8 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ParameterBag
 {
-    private $paramReader;
-    private $params = [];
+    private \FOS\RestBundle\Request\ParamReaderInterface $paramReader;
+    private array $params = [];
 
     public function __construct(ParamReaderInterface $paramReader)
     {

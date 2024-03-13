@@ -25,7 +25,7 @@ class Regex extends BaseRegex implements ResolvableConstraintInterface
 {
     use ResolverTrait;
 
-    private $resolved;
+    private ?bool $resolved = null;
 
     /**
      * {@inheritdoc}

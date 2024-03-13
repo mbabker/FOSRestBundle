@@ -23,13 +23,13 @@ use Symfony\Component\HttpFoundation\Response;
 final class View
 {
     private $data;
-    private $statusCode;
-    private $format;
-    private $location;
-    private $route;
-    private $routeParameters;
-    private $context;
-    private $response;
+    private ?int $statusCode = null;
+    private ?string $format = null;
+    private ?string $location = null;
+    private ?string $route = null;
+    private ?array $routeParameters = null;
+    private ?\FOS\RestBundle\Context\Context $context = null;
+    private ?\Symfony\Component\HttpFoundation\Response $response = null;
 
     public static function create($data = null, ?int $statusCode = null, array $headers = []): self
     {

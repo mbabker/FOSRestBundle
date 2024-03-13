@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ChainVersionResolver implements VersionResolverInterface
 {
-    private $resolvers = [];
+    private array $resolvers = [];
 
     /**
      * @var VersionResolverInterface[]

@@ -24,8 +24,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class ResponseStatusCodeListener implements EventSubscriberInterface
 {
-    private $exceptionValueMap;
-    private $responseStatusCode;
+    private \FOS\RestBundle\Util\ExceptionValueMap $exceptionValueMap;
+    private ?int $responseStatusCode = null;
 
     public function __construct(ExceptionValueMap $exceptionValueMap)
     {

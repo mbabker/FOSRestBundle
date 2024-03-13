@@ -23,10 +23,7 @@ use FOS\RestBundle\Controller\Annotations\ParamInterface;
  */
 final class ParamReader implements ParamReaderInterface
 {
-    /**
-     * @var Reader|null
-     */
-    private $annotationReader;
+    private ?\Doctrine\Common\Annotations\Reader $annotationReader;
 
     public function __construct(?Reader $annotationReader = null)
     {

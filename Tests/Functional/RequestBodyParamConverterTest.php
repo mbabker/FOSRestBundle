@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 
 class RequestBodyParamConverterTest extends WebTestCase
 {
-    public function testRequestBodyIsDeserialized()
+    public function testRequestBodyIsDeserialized(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -35,7 +35,7 @@ class RequestBodyParamConverterTest extends WebTestCase
         $this->assertSame('Post 1', $client->getResponse()->getContent());
     }
 
-    public function testErrorPageServedByFrameworkBundle()
+    public function testErrorPageServedByFrameworkBundle(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');

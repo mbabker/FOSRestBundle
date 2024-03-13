@@ -20,16 +20,16 @@ use JMS\Serializer\Exclusion\ExclusionStrategyInterface;
  */
 final class Context
 {
-    private $attributes = [];
-    private $version;
+    private array $attributes = [];
+    private ?string $version = null;
     private $groups;
-    private $isMaxDepthEnabled;
-    private $serializeNull;
+    private ?bool $isMaxDepthEnabled = null;
+    private ?bool $serializeNull = null;
 
     /**
      * @var ExclusionStrategyInterface[]
      */
-    private $exclusionStrategies = [];
+    private array $exclusionStrategies = [];
 
     public function setAttribute(string $key, $value): self
     {

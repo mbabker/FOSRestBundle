@@ -18,25 +18,22 @@ use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
  */
 class VersionTest extends WebTestCase
 {
-    private static $client;
+    private static \Symfony\Bundle\FrameworkBundle\KernelBrowser $client;
 
     public static function setUpBeforeClass(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             self::markTestSkipped('Test requires sensio/framework-extra-bundle');
         }
-
-        parent::setUpBeforeClass();
         static::$client = static::createClient(['test_case' => 'Version']);
     }
 
     public static function tearDownAfterClass(): void
     {
         self::deleteTmpDir('Version');
-        parent::tearDownAfterClass();
     }
 
-    public function testVersionAnnotation()
+    public function testVersionAnnotation(): void
     {
         static::$client->request(
             'GET',
@@ -48,7 +45,7 @@ class VersionTest extends WebTestCase
         $this->assertEquals('{"version":"test annotation"}', static::$client->getResponse()->getContent());
     }
 
-    public function testVersionInPathWithAnnotation()
+    public function testVersionInPathWithAnnotation(): void
     {
         static::$client->request(
             'GET',
@@ -63,7 +60,7 @@ class VersionTest extends WebTestCase
         );
     }
 
-    public function testCustomHeaderVersion()
+    public function testCustomHeaderVersion(): void
     {
         static::$client->request(
             'GET',
@@ -78,7 +75,7 @@ class VersionTest extends WebTestCase
         );
     }
 
-    public function testQueryVersion()
+    public function testQueryVersion(): void
     {
         static::$client->request(
             'GET',
@@ -90,7 +87,7 @@ class VersionTest extends WebTestCase
         $this->assertEquals('{"version":"3.2","version_exclusion":"3.2"}', static::$client->getResponse()->getContent());
     }
 
-    public function testAcceptHeaderVersion()
+    public function testAcceptHeaderVersion(): void
     {
         static::$client->request(
             'GET',
@@ -105,7 +102,7 @@ class VersionTest extends WebTestCase
         $this->assertEquals('application/vnd.foo.api+json;myversion=2.3', $response->headers->get('Content-Type'));
     }
 
-    public function testDefaultVersion()
+    public function testDefaultVersion(): void
     {
         static::$client->request(
             'GET',
@@ -120,7 +117,7 @@ class VersionTest extends WebTestCase
         );
     }
 
-    public function testVersionInPath()
+    public function testVersionInPath(): void
     {
         static::$client->request(
             'GET',

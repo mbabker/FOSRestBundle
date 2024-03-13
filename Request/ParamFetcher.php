@@ -37,10 +37,10 @@ final class ParamFetcher implements ParamFetcherInterface
 {
     use ResolverTrait;
 
-    private $container;
-    private $parameterBag;
-    private $requestStack;
-    private $validator;
+    private \Symfony\Component\DependencyInjection\ContainerInterface $container;
+    private \FOS\RestBundle\Request\ParameterBag $parameterBag;
+    private \Symfony\Component\HttpFoundation\RequestStack $requestStack;
+    private \Symfony\Component\Validator\Validator\ValidatorInterface $validator;
 
     public function __construct(ContainerInterface $container, ParamReaderInterface $paramReader, RequestStack $requestStack, ValidatorInterface $validator)
     {
@@ -92,7 +92,7 @@ final class ParamFetcher implements ParamFetcherInterface
         $param = $params[$name];
         $default = $param->getDefault();
         $default = $this->resolveValue($this->container, $default);
-        $strict = (null !== $strict ? $strict : $param->isStrict());
+        $strict ??= $param->isStrict();
 
         $paramValue = $param->getValue($this->getRequest(), $default);
 
@@ -133,7 +133,7 @@ final class ParamFetcher implements ParamFetcherInterface
                 throw InvalidParameterException::withViolations($param, $errors);
             }
 
-            return null === $default ? '' : $default;
+            return $default ?? '';
         }
 
         return $paramValue;

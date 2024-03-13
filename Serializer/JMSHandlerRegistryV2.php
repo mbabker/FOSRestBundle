@@ -23,7 +23,7 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
  */
 final class JMSHandlerRegistryV2 implements HandlerRegistryInterface
 {
-    private $registry;
+    private \JMS\Serializer\Handler\HandlerRegistryInterface $registry;
 
     public function __construct(HandlerRegistryInterface $registry)
     {

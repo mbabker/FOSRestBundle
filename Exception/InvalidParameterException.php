@@ -17,8 +17,8 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class InvalidParameterException extends BadRequestHttpException
 {
-    private $parameter;
-    private $violations;
+    private ?\FOS\RestBundle\Controller\Annotations\ParamInterface $parameter = null;
+    private ?\Symfony\Component\Validator\ConstraintViolationListInterface $violations = null;
 
     public function getParameter()
     {
@@ -30,7 +30,7 @@ class InvalidParameterException extends BadRequestHttpException
         return $this->violations;
     }
 
-    public static function withViolations(ParamInterface $parameter, ConstraintViolationListInterface $violations)
+    public static function withViolations(ParamInterface $parameter, ConstraintViolationListInterface $violations): \FOS\RestBundle\Exception\InvalidParameterException
     {
         $message = '';
 

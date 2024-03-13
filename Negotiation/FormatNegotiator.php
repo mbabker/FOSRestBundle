@@ -24,9 +24,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class FormatNegotiator extends BaseNegotiator
 {
-    private $map = [];
-    private $requestStack;
-    private $mimeTypes;
+    private array $map = [];
+    private \Symfony\Component\HttpFoundation\RequestStack $requestStack;
+    private array $mimeTypes;
 
     public function __construct(RequestStack $requestStack, array $mimeTypes = [])
     {
@@ -104,9 +104,7 @@ final class FormatNegotiator extends BaseNegotiator
 
     private function sanitize(array $values): array
     {
-        return array_map(function ($value) {
-            return preg_replace('/\s+/', '', strtolower($value));
-        }, $values);
+        return array_map(fn($value) => preg_replace('/\s+/', '', strtolower($value)), $values);
     }
 
     /**

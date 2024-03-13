@@ -23,8 +23,8 @@ use Symfony\Component\Routing\RouterInterface;
  */
 final class AllowedMethodsRouterLoader implements AllowedMethodsLoaderInterface, CacheWarmerInterface
 {
-    private $router;
-    private $cache;
+    private \Symfony\Component\Routing\RouterInterface $router;
+    private \Symfony\Component\Config\ConfigCache $cache;
 
     public function __construct(RouterInterface $router, string $cacheDir, bool $isDebug)
     {

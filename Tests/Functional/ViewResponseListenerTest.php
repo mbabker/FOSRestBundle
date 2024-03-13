@@ -20,17 +20,14 @@ class ViewResponseListenerTest extends WebTestCase
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             self::markTestSkipped('Test requires sensio/framework-extra-bundle');
         }
-
-        parent::setUpBeforeClass();
     }
 
     public static function tearDownAfterClass(): void
     {
         self::deleteTmpDir('ViewResponseListener');
-        parent::tearDownAfterClass();
     }
 
-    public function testRedirect()
+    public function testRedirect(): void
     {
         $client = $this->createClient(['test_case' => 'ViewResponseListener']);
         $client->request(

@@ -32,7 +32,7 @@ class CamelKeysNormalizer implements ArrayNormalizerInterface
         return $data;
     }
 
-    private function normalizeArray(array &$data)
+    private function normalizeArray(array &$data): void
     {
         $normalizedData = [];
 
@@ -67,8 +67,6 @@ class CamelKeysNormalizer implements ArrayNormalizerInterface
             return $string;
         }
 
-        return preg_replace_callback('/_([a-zA-Z0-9])/', function ($matches) {
-            return strtoupper($matches[1]);
-        }, $string);
+        return preg_replace_callback('/_([a-zA-Z0-9])/', fn($matches): string => strtoupper($matches[1]), $string);
     }
 }

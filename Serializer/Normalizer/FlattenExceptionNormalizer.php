@@ -24,10 +24,10 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  */
 final class FlattenExceptionNormalizer implements NormalizerInterface
 {
-    private $statusCodeMap;
-    private $messagesMap;
-    private $debug;
-    private $rfc7807;
+    private \FOS\RestBundle\Util\ExceptionValueMap $statusCodeMap;
+    private \FOS\RestBundle\Util\ExceptionValueMap $messagesMap;
+    private bool $debug;
+    private bool $rfc7807;
 
     public function __construct(ExceptionValueMap $statusCodeMap, ExceptionValueMap $messagesMap, bool $debug, bool $rfc7807)
     {

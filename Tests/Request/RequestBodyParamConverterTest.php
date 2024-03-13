@@ -47,13 +47,13 @@ class RequestBodyParamConverterTest extends TestCase
         $this->converter = new RequestBodyParamConverter($this->serializer);
     }
 
-    public function testInterface()
+    public function testInterface(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $this->assertInstanceOf(ParamConverterInterface::class, $converter);
     }
 
-    public function testContextMergeDuringExecution()
+    public function testContextMergeDuringExecution(): bool
     {
         $options = [
             'deserializationContext' => [
@@ -84,7 +84,7 @@ class RequestBodyParamConverterTest extends TestCase
         return $converter->apply($request, $configuration);
     }
 
-    public function testExecutionInterceptsUnsupportedFormatException()
+    public function testExecutionInterceptsUnsupportedFormatException(): void
     {
         $this->expectException(UnsupportedMediaTypeHttpException::class);
 
@@ -96,7 +96,7 @@ class RequestBodyParamConverterTest extends TestCase
         $this->launchExecution($converter);
     }
 
-    public function testExecutionInterceptsJMSException()
+    public function testExecutionInterceptsJMSException(): void
     {
         $this->expectException(BadRequestHttpException::class);
 
@@ -108,7 +108,7 @@ class RequestBodyParamConverterTest extends TestCase
         $this->launchExecution($converter);
     }
 
-    public function testExecutionInterceptsSymfonySerializerException()
+    public function testExecutionInterceptsSymfonySerializerException(): void
     {
         $this->expectException(BadRequestHttpException::class);
 
@@ -120,7 +120,7 @@ class RequestBodyParamConverterTest extends TestCase
         $this->launchExecution($converter);
     }
 
-    public function testRequestAttribute()
+    public function testRequestAttribute(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $this->serializer
@@ -132,7 +132,7 @@ class RequestBodyParamConverterTest extends TestCase
         $this->assertEquals('Object', $request->attributes->get('foo'));
     }
 
-    public function testValidatorParameters()
+    public function testValidatorParameters(): void
     {
         $this->serializer
              ->expects($this->once())
@@ -156,7 +156,7 @@ class RequestBodyParamConverterTest extends TestCase
         $this->assertEquals($errors, $request->attributes->get('errors'));
     }
 
-    public function testValidatorSkipping()
+    public function testValidatorSkipping(): void
     {
         $this->serializer
             ->expects($this->once())
@@ -176,13 +176,13 @@ class RequestBodyParamConverterTest extends TestCase
         $this->assertNull($request->attributes->get('errors'));
     }
 
-    public function testReturn()
+    public function testReturn(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $this->assertTrue($this->launchExecution($converter));
     }
 
-    public function testContextConfiguration()
+    public function testContextConfiguration(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $options = [
@@ -200,15 +200,14 @@ class RequestBodyParamConverterTest extends TestCase
         $expectedContext = new Context();
         $expectedContext
             ->addGroups($options['groups'])
-            ->setVersion($options['version'])
-            ->enableMaxDepth($options['enableMaxDepth'])
+            ->setVersion($options['version'])->enableMaxDepth()
             ->setSerializeNull($options['serializeNull'])
             ->setAttribute('foo', 'bar');
 
         $this->assertEquals($expectedContext, $context);
     }
 
-    public function testValidatorOptionsGetter()
+    public function testValidatorOptionsGetter(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
 
@@ -230,20 +229,20 @@ class RequestBodyParamConverterTest extends TestCase
         $this->assertEquals(['groups' => false, 'traverse' => false, 'deep' => true], $validatorMethod->invoke($converter, $options2));
     }
 
-    public function testSupports()
+    public function testSupports(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $config = $this->createConfiguration(Post::class, 'post');
         $this->assertTrue($converter->supports($config));
     }
 
-    public function testSupportsWithNoClass()
+    public function testSupportsWithNoClass(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $this->assertFalse($converter->supports($this->createConfiguration(null, 'post')));
     }
 
-    public function testNoContentTypeCausesUnsupportedMediaTypeException()
+    public function testNoContentTypeCausesUnsupportedMediaTypeException(): void
     {
         $converter = new RequestBodyParamConverter($this->serializer);
         $request = $this->createRequest();
@@ -263,7 +262,7 @@ class RequestBodyParamConverterTest extends TestCase
         return $converter->apply($request, $configuration);
     }
 
-    protected function createConfiguration($class, $name = null, array $options = [])
+    protected function createConfiguration($class, $name = null, array $options = []): \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter
     {
         return new ParamConverter([
             'name' => (string) $name,
@@ -273,7 +272,7 @@ class RequestBodyParamConverterTest extends TestCase
         ]);
     }
 
-    protected function createRequest($body = null, $contentType = null)
+    protected function createRequest($body = null, string|array|null $contentType = null): \Symfony\Component\HttpFoundation\Request
     {
         $request = new Request(
             [],

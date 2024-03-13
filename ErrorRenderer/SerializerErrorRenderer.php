@@ -25,9 +25,9 @@ use Symfony\Component\Serializer\Exception\NotEncodableValueException;
  */
 final class SerializerErrorRenderer implements ErrorRendererInterface
 {
-    private $serializer;
+    private \FOS\RestBundle\Serializer\Serializer $serializer;
     private $format;
-    private $fallbackErrorRenderer;
+    private ?\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface $fallbackErrorRenderer;
     private $debug;
 
     /**
@@ -77,7 +77,7 @@ final class SerializerErrorRenderer implements ErrorRendererInterface
      */
     public static function getPreferredFormat(RequestStack $requestStack): \Closure
     {
-        return static function () use ($requestStack) {
+        return static function () use ($requestStack): ?string {
             if (!$request = $requestStack->getCurrentRequest()) {
                 throw class_exists(NotEncodableValueException::class) ? new NotEncodableValueException() : new UnsupportedFormatException();
             }

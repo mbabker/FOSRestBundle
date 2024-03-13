@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class QueryParameterVersionResolver implements VersionResolverInterface
 {
-    private $parameterName;
+    private string $parameterName;
 
     public function __construct(string $parameterName)
     {

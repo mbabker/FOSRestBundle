@@ -31,7 +31,7 @@ class SerializerErrorRendererTest extends TestCase
         }
     }
 
-    public function testSerializeFlattenExceptionWithStringFormat()
+    public function testSerializeFlattenExceptionWithStringFormat(): void
     {
         $serializer = $this->createMock(Serializer::class);
         $serializer
@@ -46,7 +46,7 @@ class SerializerErrorRendererTest extends TestCase
         $this->assertSame('serialized FlattenException', $flattenException->getAsString());
     }
 
-    public function testSerializeFlattenExceptionWithCallableFormat()
+    public function testSerializeFlattenExceptionWithCallableFormat(): void
     {
         $serializer = $this->createMock(Serializer::class);
         $serializer
@@ -55,9 +55,7 @@ class SerializerErrorRendererTest extends TestCase
             ->with($this->isInstanceOf(FlattenException::class), 'json', $this->isInstanceOf(Context::class))
             ->willReturn('serialized FlattenException');
 
-        $format = function (FlattenException $flattenException) {
-            return 'json';
-        };
+        $format = fn(FlattenException $flattenException): string => 'json';
 
         $errorRenderer = new SerializerErrorRenderer($serializer, $format);
         $flattenException = $errorRenderer->render(new NotFoundHttpException());
@@ -65,7 +63,7 @@ class SerializerErrorRendererTest extends TestCase
         $this->assertSame('serialized FlattenException', $flattenException->getAsString());
     }
 
-    public function testSerializeFlattenExceptionUsingGetPreferredFormatMethod()
+    public function testSerializeFlattenExceptionUsingGetPreferredFormatMethod(): void
     {
         $serializer = $this->createMock(Serializer::class);
         $serializer
@@ -87,7 +85,7 @@ class SerializerErrorRendererTest extends TestCase
         $this->assertSame('serialized FlattenException', $flattenException->getAsString());
     }
 
-    public function testFallbackErrorRendererIsUsedWhenFormatCannotBeDetected()
+    public function testFallbackErrorRendererIsUsedWhenFormatCannotBeDetected(): void
     {
         $exception = new NotFoundHttpException();
         $flattenException = new FlattenException();

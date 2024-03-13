@@ -3,10 +3,15 @@ imports:
     - { resource: ../config/sensio_framework_extra.php }
 
 framework:
+    handle_all_throwables: true
+    annotations:
+        enabled: true
     serializer: true
     router:
         resource: "%kernel.project_dir%/RequestBodyParamConverterTwigBundle/routing.yml"
         strict_requirements: true
+    php_errors:
+        log: true
 
 fos_rest:
     body_converter:

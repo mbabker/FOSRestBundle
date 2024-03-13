@@ -26,9 +26,9 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class DisableCSRFExtension extends AbstractTypeExtension
 {
-    private $tokenStorage;
-    private $role;
-    private $authorizationChecker;
+    private \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage;
+    private string $role;
+    private \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(TokenStorageInterface $tokenStorage, string $role, AuthorizationCheckerInterface $authorizationChecker)
     {

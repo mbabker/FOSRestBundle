@@ -29,8 +29,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class ViewResponseListener implements EventSubscriberInterface
 {
-    private $viewHandler;
-    private $forceView;
+    private \FOS\RestBundle\View\ViewHandlerInterface $viewHandler;
+    private bool $forceView;
 
     public function __construct(ViewHandlerInterface $viewHandler, bool $forceView)
     {

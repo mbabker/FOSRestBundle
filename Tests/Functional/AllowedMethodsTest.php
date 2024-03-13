@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
  */
 class AllowedMethodsTest extends WebTestCase
 {
-    public function testAllowHeader()
+    public function testAllowHeader(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');

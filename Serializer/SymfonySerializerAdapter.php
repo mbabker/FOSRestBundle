@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 final class SymfonySerializerAdapter implements Serializer
 {
-    private $serializer;
+    private \Symfony\Component\Serializer\SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

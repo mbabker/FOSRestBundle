@@ -20,8 +20,8 @@ use Psr\Container\ContainerInterface;
  */
 final class ContainerDecoderProvider implements DecoderProviderInterface
 {
-    private $container;
-    private $decoders;
+    private \Psr\Container\ContainerInterface $container;
+    private array $decoders;
 
     /**
      * @param array<string,string> $decoders List of key (format) value (service ids) of decoders

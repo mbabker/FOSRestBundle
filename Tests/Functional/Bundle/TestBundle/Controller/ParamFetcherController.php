@@ -32,7 +32,7 @@ class ParamFetcherController extends AbstractFOSRestController
      * @QueryParam(name="foz", requirements="[a-z]+")
      * @QueryParam(name="baz", requirements="[a-z]+", incompatibles={"foz"})
      */
-    public function paramsAction(ParamFetcherInterface $fetcher)
+    public function paramsAction(ParamFetcherInterface $fetcher): \Symfony\Component\HttpFoundation\JsonResponse
     {
         return new JsonResponse($fetcher->all());
     }
@@ -42,12 +42,12 @@ class ParamFetcherController extends AbstractFOSRestController
      *
      * @RequestParam(name="bar", default="%foo%")
      */
-    public function testAction(Request $request, ParamFetcherInterface $fetcher)
+    public function testAction(Request $request, ParamFetcherInterface $fetcher): \Symfony\Component\HttpFoundation\JsonResponse
     {
         $paramsBefore = $fetcher->all();
 
         $newRequest = $request->duplicate($request->query->all(), $request->request->all(), [
-            '_controller' => sprintf('%s::paramsAction', __CLASS__),
+            '_controller' => sprintf('%s::paramsAction', self::class),
         ]);
         $response = $this->container->get('http_kernel')->handle($newRequest, HttpKernelInterface::SUB_REQUEST, false);
 
@@ -63,7 +63,7 @@ class ParamFetcherController extends AbstractFOSRestController
     /**
      * @FileParam(name="single_file", strict=false, default="noFile")
      */
-    public function singleFileAction(ParamFetcherInterface $fetcher)
+    public function singleFileAction(ParamFetcherInterface $fetcher): \Symfony\Component\HttpFoundation\JsonResponse
     {
         /** @var UploadedFile $file */
         $file = $fetcher->get('single_file');
@@ -76,7 +76,7 @@ class ParamFetcherController extends AbstractFOSRestController
     /**
      * @FileParam(name="array_files", map=true)
      */
-    public function fileCollectionAction(ParamFetcherInterface $fetcher)
+    public function fileCollectionAction(ParamFetcherInterface $fetcher): \Symfony\Component\HttpFoundation\JsonResponse
     {
         $files = $fetcher->get('array_files');
 
@@ -91,7 +91,7 @@ class ParamFetcherController extends AbstractFOSRestController
     /**
      * @FileParam(name="array_images", image=true, strict=false, map=true, default="NotAnImage")
      */
-    public function imageCollectionAction(ParamFetcherInterface $fetcher)
+    public function imageCollectionAction(ParamFetcherInterface $fetcher): \Symfony\Component\HttpFoundation\JsonResponse
     {
         $files = $fetcher->get('array_images');
 

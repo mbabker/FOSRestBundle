@@ -20,8 +20,8 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class VersionListener
 {
-    private $versionResolver;
-    private $defaultVersion;
+    private \FOS\RestBundle\Version\VersionResolverInterface $versionResolver;
+    private ?string $defaultVersion;
 
     public function __construct(VersionResolverInterface $versionResolver, ?string $defaultVersion = null)
     {

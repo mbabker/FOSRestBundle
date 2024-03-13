@@ -27,10 +27,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FlattenExceptionHandler implements SubscribingHandlerInterface
 {
-    private $statusCodeMap;
-    private $messagesMap;
-    private $debug;
-    private $rfc7807;
+    private \FOS\RestBundle\Util\ExceptionValueMap $statusCodeMap;
+    private \FOS\RestBundle\Util\ExceptionValueMap $messagesMap;
+    private bool $debug;
+    private bool $rfc7807;
 
     public function __construct(ExceptionValueMap $statusCodeMap, ExceptionValueMap $messagesMap, bool $debug, bool $rfc7807)
     {
@@ -64,10 +64,10 @@ class FlattenExceptionHandler implements SubscribingHandlerInterface
             $exception->setHeaders($exception->getHeaders() + ['Content-Type' => 'application/problem+json']);
         }
 
-        return $visitor->visitArray($this->convertToArray($exception, $context), $type, $context);
+        return $visitor->visitArray($this->convertToArray($exception, $context), $type);
     }
 
-    public function serializeToXml(XmlSerializationVisitor $visitor, FlattenException $exception, array $type, Context $context)
+    public function serializeToXml(XmlSerializationVisitor $visitor, FlattenException $exception, array $type, Context $context): void
     {
         if ($this->rfc7807) {
             $exception->setHeaders($exception->getHeaders() + ['Content-Type' => 'application/problem+xml']);
@@ -81,7 +81,7 @@ class FlattenExceptionHandler implements SubscribingHandlerInterface
             $visitor->setDefaultRootName($rootName);
         }
 
-        $document = $visitor->getDocument(true);
+        $document = $visitor->getDocument();
 
         if (!$visitor->getCurrentNode()) {
             $visitor->createRoot(null, $rootName);

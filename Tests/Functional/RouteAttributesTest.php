@@ -19,25 +19,22 @@ use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 class RouteAttributesTest extends WebTestCase
 {
     private const TEST_CASE = 'RouteAttributes';
-    private static $client;
+    private static \Symfony\Bundle\FrameworkBundle\KernelBrowser $client;
 
     public static function setUpBeforeClass(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             self::markTestSkipped('Test requires sensio/framework-extra-bundle');
         }
-
-        parent::setUpBeforeClass();
         static::$client = static::createClient(['test_case' => self::TEST_CASE]);
     }
 
     public static function tearDownAfterClass(): void
     {
         self::deleteTmpDir(self::TEST_CASE);
-        parent::tearDownAfterClass();
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         static::$client->request(
             'GET',
@@ -54,7 +51,7 @@ class RouteAttributesTest extends WebTestCase
         );
     }
 
-    public function testPost()
+    public function testPost(): void
     {
         static::$client->request(
             'POST',
@@ -71,7 +68,7 @@ class RouteAttributesTest extends WebTestCase
         );
     }
 
-    public function testInvalidQueryParameter()
+    public function testInvalidQueryParameter(): void
     {
         static::$client->request(
             'GET',

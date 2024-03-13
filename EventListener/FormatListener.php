@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class FormatListener
 {
-    private $formatNegotiator;
+    private \FOS\RestBundle\Negotiation\FormatNegotiator $formatNegotiator;
 
     public function __construct(FormatNegotiator $formatNegotiator)
     {

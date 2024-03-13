@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class MimeTypeListenerTest extends TestCase
 {
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $listener = new MimeTypeListener(['jsonp' => ['application/javascript+jsonp']]);
 
@@ -50,7 +50,7 @@ class MimeTypeListenerTest extends TestCase
         $this->assertEquals('application/javascript+jsonp', $request->getMimeType('jsonp'));
     }
 
-    public function testOnKernelRequestNoZone()
+    public function testOnKernelRequestNoZone(): void
     {
         $listener = new MimeTypeListener(['soap' => ['application/soap+xml']]);
 
@@ -71,7 +71,7 @@ class MimeTypeListenerTest extends TestCase
         $this->assertNull($request->getMimeType('soap'));
     }
 
-    public function testOnKernelRequestWithZone()
+    public function testOnKernelRequestWithZone(): void
     {
         $listener = new MimeTypeListener(['soap' => ['application/soap+xml']]);
 

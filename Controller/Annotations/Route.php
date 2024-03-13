@@ -54,15 +54,15 @@ class Route extends CompatRoute
      * @throws \TypeError if the $data argument is an unsupported type
      */
     public function __construct(
-        $data = [],
-        $path = null,
+        string|array|null $data = [],
+        ?string $path = null,
         string $name = null,
         array $requirements = [],
         array $options = [],
         array $defaults = [],
         string $host = null,
-        $methods = [],
-        $schemes = [],
+        array|string $methods = [],
+        ?string $schemes = [],
         string $condition = null,
         int $priority = null,
         string $locale = null,
@@ -131,7 +131,7 @@ class Route extends CompatRoute
     /**
      * @return string|null
      */
-    public function getMethod()
+    public function getMethod(): void
     {
         return;
     }

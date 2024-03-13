@@ -24,9 +24,9 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class ZoneMatcherListener
 {
-    private $requestMatchers = [];
+    private array $requestMatchers = [];
 
-    public function addRequestMatcher(RequestMatcherInterface $requestMatcher)
+    public function addRequestMatcher(RequestMatcherInterface $requestMatcher): void
     {
         $this->requestMatchers[] = $requestMatcher;
     }

@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class HeaderVersionResolver implements VersionResolverInterface
 {
-    private $headerName;
+    private string $headerName;
 
     public function __construct(string $headerName)
     {

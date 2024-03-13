@@ -27,8 +27,8 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
  */
 class ParamFetcherListener
 {
-    private $paramFetcher;
-    private $setParamsAsAttributes;
+    private \FOS\RestBundle\Request\ParamFetcherInterface $paramFetcher;
+    private bool $setParamsAsAttributes;
 
     public function __construct(ParamFetcherInterface $paramFetcher, bool $setParamsAsAttributes = false)
     {
@@ -70,7 +70,7 @@ class ParamFetcherListener
 
     private function getAttributeName(callable $controller): string
     {
-        list($object, $name) = $controller;
+        [$object, $name] = $controller;
         $method = new \ReflectionMethod($object, $name);
         foreach ($method->getParameters() as $param) {
             if ($this->isParamFetcherType($param)) {

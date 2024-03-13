@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
  */
 class AllowedMethodsListener
 {
-    private $loader;
+    private \FOS\RestBundle\Response\AllowedMethodsLoader\AllowedMethodsLoaderInterface $loader;
 
     public function __construct(AllowedMethodsLoaderInterface $loader)
     {

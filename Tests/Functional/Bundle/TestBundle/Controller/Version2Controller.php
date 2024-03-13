@@ -27,7 +27,7 @@ class Version2Controller extends AbstractFOSRestController
      * @Get(path="/version", condition="request.attributes.get('version') in ['1.2']")
      */
     #[View]
-    public function versionAction($version)
+    public function versionAction($version): array
     {
         return ['version' => 'test annotation'];
     }
@@ -38,7 +38,7 @@ class Version2Controller extends AbstractFOSRestController
      * @Get(path="/version/{version}", requirements={"version": "1.2"})
      */
     #[View]
-    public function versionPathAction(Request $request, $version)
+    public function versionPathAction(Request $request, $version): array
     {
         $versionExclusion = $this->findExclusionStrategyVersion($request);
 
@@ -48,7 +48,7 @@ class Version2Controller extends AbstractFOSRestController
         ];
     }
 
-    private function findExclusionStrategyVersion(Request $request)
+    private function findExclusionStrategyVersion(Request $request): ?string
     {
         $view = $this->view([]);
         $response = $this->getViewHandler()->createResponse($view, $request, 'json');

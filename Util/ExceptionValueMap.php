@@ -26,7 +26,7 @@ class ExceptionValueMap
      * key => exception class
      * value => value associated with exception.
      */
-    private $map;
+    private array $map;
 
     /**
      * @param array<string,bool>|array<string,int> $map

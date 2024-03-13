@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class MediaTypeVersionResolver implements VersionResolverInterface
 {
-    private $regex;
+    private string $regex;
 
     public function __construct(string $regex)
     {
@@ -35,6 +35,6 @@ final class MediaTypeVersionResolver implements VersionResolverInterface
             return null;
         }
 
-        return isset($matches['version']) ? $matches['version'] : null;
+        return $matches['version'] ?? null;
     }
 }

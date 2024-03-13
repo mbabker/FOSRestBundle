@@ -32,26 +32,22 @@ final class ViewHandler implements ConfigurableViewHandlerInterface
 {
     /**
      * Key format, value a callable that returns a Response instance.
-     *
-     * @var array
      */
-    private $customHandlers = [];
+    private array $customHandlers = [];
 
     /**
      * The supported formats as keys.
-     *
-     * @var array
      */
-    private $formats;
-    private $failedValidationCode;
-    private $emptyContentCode;
-    private $serializeNull;
+    private array $formats;
+    private int $failedValidationCode;
+    private int $emptyContentCode;
+    private bool $serializeNull;
     private $exclusionStrategyGroups = [];
     private $exclusionStrategyVersion;
     private $serializeNullStrategy;
-    private $urlGenerator;
-    private $serializer;
-    private $requestStack;
+    private \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator;
+    private \FOS\RestBundle\Serializer\Serializer $serializer;
+    private \Symfony\Component\HttpFoundation\RequestStack $requestStack;
     private $options;
 
     private function __construct(

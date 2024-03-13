@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
  */
 final class XmlDecoder implements DecoderInterface
 {
-    private $encoder;
+    private \Symfony\Component\Serializer\Encoder\XmlEncoder $encoder;
 
     public function __construct()
     {

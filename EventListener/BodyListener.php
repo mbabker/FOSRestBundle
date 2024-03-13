@@ -31,11 +31,11 @@ use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
  */
 class BodyListener
 {
-    private $decoderProvider;
-    private $throwExceptionOnUnsupportedContentType;
-    private $defaultFormat;
-    private $arrayNormalizer;
-    private $normalizeForms;
+    private \FOS\RestBundle\Decoder\DecoderProviderInterface $decoderProvider;
+    private bool $throwExceptionOnUnsupportedContentType;
+    private ?string $defaultFormat = null;
+    private ?\FOS\RestBundle\Normalizer\ArrayNormalizerInterface $arrayNormalizer;
+    private bool $normalizeForms;
 
     public function __construct(
         DecoderProviderInterface $decoderProvider,

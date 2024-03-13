@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class MimeTypeListener
 {
-    private $mimeTypes;
+    private array $mimeTypes;
 
     /**
      * @param array $mimeTypes An array with the format as key and

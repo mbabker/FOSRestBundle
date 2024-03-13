@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class VersionExclusionListener
 {
-    private $viewHandler;
+    private \FOS\RestBundle\View\ViewHandlerInterface $viewHandler;
 
     public function __construct(ViewHandlerInterface $viewHandler)
     {

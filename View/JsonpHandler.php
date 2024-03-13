@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  */
 final class JsonpHandler
 {
-    private $callbackParam;
+    private string $callbackParam;
 
     public function __construct(string $callbackParam)
     {

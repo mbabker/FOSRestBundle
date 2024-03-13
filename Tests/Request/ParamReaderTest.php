@@ -24,9 +24,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ParamReaderTest extends TestCase
 {
-    private $paramReader;
+    private \FOS\RestBundle\Request\ParamReader $paramReader;
 
-    private static $validatorSupportsAnnotations = true;
+    private static bool $validatorSupportsAnnotations = true;
 
     public static function setUpBeforeClass(): void
     {
@@ -51,7 +51,7 @@ class ParamReaderTest extends TestCase
         }
     }
 
-    public function testReadsAnnotations()
+    public function testReadsAnnotations(): void
     {
         if (!interface_exists(Reader::class)) {
             $this->markTestSkipped('Test requires doctrine/annotations');
@@ -110,7 +110,7 @@ class ParamReaderTest extends TestCase
     /**
      * @requires PHP 8
      */
-    public function testReadsAttributes()
+    public function testReadsAttributes(): void
     {
         $params = $this->paramReader->read(new \ReflectionClass(ParamsAnnotatedController::class), 'getArticlesAttributesAction');
 
@@ -158,11 +158,11 @@ class ParamReaderTest extends TestCase
         $this->assertFalse($params['foo']->strict);
     }
 
-    public function testExceptionOnNonExistingMethod()
+    public function testExceptionOnNonExistingMethod(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Class "%s" has no method "foo".', self::class));
 
-        $this->paramReader->read(new \ReflectionClass(__CLASS__), 'foo');
+        $this->paramReader->read(new \ReflectionClass(self::class), 'foo');
     }
 }

@@ -20,11 +20,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class ParamFetcherTest extends WebTestCase
 {
-    private $validRaw = [
+    private array $validRaw = [
         'foo' => 'raw',
         'bar' => 'foo',
     ];
-    private $validMap = [
+    private array $validMap = [
         'foo' => 'map',
         'foobar' => 'foo',
     ];
@@ -32,9 +32,9 @@ class ParamFetcherTest extends WebTestCase
     /**
      * @var KernelBrowser
      */
-    private $client;
+    private \Symfony\Bundle\FrameworkBundle\KernelBrowser $client;
 
-    private function createUploadedFile($path, $originalName, $mimeType = null, $error = null, $test = false)
+    private function createUploadedFile(string $path, string $originalName, $mimeType = null, $error = null, $test = false): \Symfony\Component\HttpFoundation\File\UploadedFile
     {
         return new UploadedFile(
             $path,
@@ -50,7 +50,7 @@ class ParamFetcherTest extends WebTestCase
         $this->client = $this->createClient(['test_case' => 'ParamFetcher']);
     }
 
-    public function testDefaultParameters()
+    public function testDefaultParameters(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -68,7 +68,7 @@ class ParamFetcherTest extends WebTestCase
         }
     }
 
-    public function testValidRawParameter()
+    public function testValidRawParameter(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -85,7 +85,7 @@ class ParamFetcherTest extends WebTestCase
         }
     }
 
-    public function testValidMapParameter()
+    public function testValidMapParameter(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -107,7 +107,7 @@ class ParamFetcherTest extends WebTestCase
         }
     }
 
-    public function testWithSubRequests()
+    public function testWithSubRequests(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -129,7 +129,7 @@ class ParamFetcherTest extends WebTestCase
         }
     }
 
-    public function testFileParamWithErrors()
+    public function testFileParamWithErrors(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -151,7 +151,7 @@ class ParamFetcherTest extends WebTestCase
         ], $this->getData());
     }
 
-    public function testFileParam()
+    public function testFileParam(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -172,7 +172,7 @@ class ParamFetcherTest extends WebTestCase
         ], $this->getData());
     }
 
-    public function testFileParamNull()
+    public function testFileParamNull(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -187,7 +187,7 @@ class ParamFetcherTest extends WebTestCase
         ], $this->getData());
     }
 
-    public function testFileParamArrayNullItem()
+    public function testFileParamArrayNullItem(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -215,7 +215,7 @@ class ParamFetcherTest extends WebTestCase
         ], $this->getData());
     }
 
-    public function testFileParamImageConstraintArray()
+    public function testFileParamImageConstraintArray(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -243,7 +243,7 @@ class ParamFetcherTest extends WebTestCase
         ], $this->getData());
     }
 
-    public function testFileParamImageConstraintArrayException()
+    public function testFileParamImageConstraintArrayException(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -271,7 +271,7 @@ class ParamFetcherTest extends WebTestCase
         ], $this->getData());
     }
 
-    public function testValidQueryParameter()
+    public function testValidQueryParameter(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -288,7 +288,7 @@ class ParamFetcherTest extends WebTestCase
         }
     }
 
-    public function testIncompatibleQueryParameter()
+    public function testIncompatibleQueryParameter(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');

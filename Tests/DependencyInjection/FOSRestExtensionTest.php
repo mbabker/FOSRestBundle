@@ -35,22 +35,22 @@ class FOSRestExtensionTest extends TestCase
     /**
      * @var ContainerBuilder
      */
-    private $container;
+    private \Symfony\Component\DependencyInjection\ContainerBuilder $container;
 
     /**
      * @var FOSRestExtension
      */
-    private $extension;
+    private \FOS\RestBundle\DependencyInjection\FOSRestExtension $extension;
 
     /**
      * @var bool
      */
-    private $includeFormat;
+    private bool $includeFormat;
 
     /**
      * @var array
      */
-    private $formats;
+    private array $formats;
 
     /**
      * @var string
@@ -76,7 +76,7 @@ class FOSRestExtensionTest extends TestCase
         unset($this->container, $this->extension);
     }
 
-    public function testDisableBodyListener()
+    public function testDisableBodyListener(): void
     {
         $config = [
             'fos_rest' => [
@@ -88,7 +88,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->hasDefinition('fos_rest.body_listener'));
     }
 
-    public function testLoadBodyListenerWithDefaults()
+    public function testLoadBodyListenerWithDefaults(): void
     {
         $this->extension->load([
             'fos_rest' => [
@@ -106,7 +106,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertCount(2, $this->container->getDefinition('fos_rest.body_listener')->getArguments());
     }
 
-    public function testLoadBodyListenerWithNormalizerString()
+    public function testLoadBodyListenerWithNormalizerString(): void
     {
         $config = [
             'fos_rest' => [
@@ -124,7 +124,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertEquals('fos_rest.normalizer.camel_keys', (string) $normalizerArgument);
     }
 
-    public function testLoadBodyListenerWithNormalizerArray()
+    public function testLoadBodyListenerWithNormalizerArray(): void
     {
         $config = [
             'fos_rest' => [
@@ -148,7 +148,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($normalizeForms);
     }
 
-    public function testLoadBodyListenerWithNormalizerArrayAndForms()
+    public function testLoadBodyListenerWithNormalizerArrayAndForms(): void
     {
         $config = [
             'fos_rest' => [
@@ -173,7 +173,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($normalizeForms);
     }
 
-    public function testDisableFormatListener()
+    public function testDisableFormatListener(): void
     {
         $config = [
             'fos_rest' => [
@@ -185,7 +185,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->hasDefinition('fos_rest.format_listener'));
     }
 
-    public function testLoadFormatListenerWithDefaults()
+    public function testLoadFormatListenerWithDefaults(): void
     {
         $this->extension->load([
             'fos_rest' => [],
@@ -194,7 +194,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->hasDefinition('fos_rest.format_listener'));
     }
 
-    public function testLoadFormatListenerWithSingleRule()
+    public function testLoadFormatListenerWithSingleRule(): void
     {
         $config = [
             'fos_rest' => [
@@ -208,7 +208,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($this->container->hasDefinition('fos_rest.format_listener'));
     }
 
-    public function testLoadParamFetcherListener()
+    public function testLoadParamFetcherListener(): void
     {
         $config = [
             'fos_rest' => [
@@ -221,7 +221,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->getDefinition('fos_rest.param_fetcher_listener')->getArgument(1));
     }
 
-    public function testLoadParamFetcherListenerForce()
+    public function testLoadParamFetcherListenerForce(): void
     {
         $config = [
             'fos_rest' => [
@@ -234,7 +234,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($this->container->getDefinition('fos_rest.param_fetcher_listener')->getArgument(1));
     }
 
-    public function testLoadFormatListenerWithMultipleRule()
+    public function testLoadFormatListenerWithMultipleRule(): void
     {
         $config = [
             'fos_rest' => [
@@ -251,7 +251,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($this->container->hasDefinition('fos_rest.format_listener'));
     }
 
-    public function testLoadFormatListenerMediaTypeNoRules()
+    public function testLoadFormatListenerMediaTypeNoRules(): void
     {
         $this->expectException(InvalidConfigurationException::class);
 
@@ -265,7 +265,7 @@ class FOSRestExtensionTest extends TestCase
         $this->extension->load($config, $this->container);
     }
 
-    public function testLoadServicesWithDefaults()
+    public function testLoadServicesWithDefaults(): void
     {
         $this->extension->load([
             'fos_rest' => [],
@@ -279,7 +279,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($viewHandlerAlias->isPrivate());
     }
 
-    public function testDisableViewResponseListener()
+    public function testDisableViewResponseListener(): void
     {
         $config = [
             'fos_rest' => [
@@ -293,7 +293,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->hasDefinition('fos_rest.view_response_listener'));
     }
 
-    public function testLoadViewResponseListener()
+    public function testLoadViewResponseListener(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -312,7 +312,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->getDefinition('fos_rest.view_response_listener')->getArgument(1));
     }
 
-    public function testLoadViewResponseListenerForce()
+    public function testLoadViewResponseListenerForce(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -331,7 +331,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($this->container->getDefinition('fos_rest.view_response_listener')->getArgument(1));
     }
 
-    public function testForceEmptyContentDefault()
+    public function testForceEmptyContentDefault(): void
     {
         $this->extension->load([
            'fos_rest' => [],
@@ -339,7 +339,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertEquals(204, $this->container->getDefinition('fos_rest.view_handler.default')->getArgument(5));
     }
 
-    public function testForceEmptyContentIs200()
+    public function testForceEmptyContentIs200(): void
     {
         $config = [
             'fos_rest' => [
@@ -352,7 +352,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertEquals(200, $this->container->getDefinition('fos_rest.view_handler.default')->getArgument(5));
     }
 
-    public function testViewSerializeNullDefault()
+    public function testViewSerializeNullDefault(): void
     {
         $this->extension->load([
             'fos_rest' => [],
@@ -360,7 +360,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->getDefinition('fos_rest.view_handler.default')->getArgument(6));
     }
 
-    public function testViewSerializeNullIsTrue()
+    public function testViewSerializeNullIsTrue(): void
     {
         $config = [
             'fos_rest' => [
@@ -373,7 +373,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($this->container->getDefinition('fos_rest.view_handler.default')->getArgument(6));
     }
 
-    public function testViewHandlerSerializerOptions()
+    public function testViewHandlerSerializerOptions(): void
     {
         $config = [
             'fos_rest' => [
@@ -393,7 +393,7 @@ class FOSRestExtensionTest extends TestCase
         ], $this->container->getDefinition('fos_rest.view_handler.default')->getArgument(7));
     }
 
-    public function testValidatorAliasWhenEnabled()
+    public function testValidatorAliasWhenEnabled(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -408,7 +408,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertAlias('validator', 'fos_rest.validator');
     }
 
-    public function testValidatorAliasWhenDisabled()
+    public function testValidatorAliasWhenDisabled(): void
     {
         if (!class_exists(SensioFrameworkExtraBundle::class)) {
             $this->markTestSkipped('Test requires sensio/framework-extra-bundle');
@@ -423,7 +423,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->has('fos_rest.validator'));
     }
 
-    public function testLoadOkMessagesClass()
+    public function testLoadOkMessagesClass(): void
     {
         $this->extension->load([
             'fos_rest' => [
@@ -440,7 +440,7 @@ class FOSRestExtensionTest extends TestCase
     /**
      * @dataProvider getLoadBadCodeValueThrowsExceptionData
      */
-    public function testLoadBadCodeValueThrowsException($value)
+    public function testLoadBadCodeValueThrowsException($value): void
     {
         $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessage('Invalid HTTP code in fos_rest.exception.codes');
@@ -456,7 +456,7 @@ class FOSRestExtensionTest extends TestCase
         ], $this->container);
     }
 
-    public function getLoadBadCodeValueThrowsExceptionData()
+    public function getLoadBadCodeValueThrowsExceptionData(): array
     {
         $data = [
             null,
@@ -465,12 +465,10 @@ class FOSRestExtensionTest extends TestCase
             true,
         ];
 
-        return array_map(function ($i) {
-            return [$i];
-        }, $data);
+        return array_map(fn($i): array => [$i], $data);
     }
 
-    public function testResponseStatusCodeListenerEnabled()
+    public function testResponseStatusCodeListenerEnabled(): void
     {
         $extension = new FOSRestExtension();
         $extension->load([
@@ -484,7 +482,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertTrue($this->container->hasDefinition('fos_rest.exception.response_status_code_listener'));
     }
 
-    public function testExceptionListenerDisabled()
+    public function testExceptionListenerDisabled(): void
     {
         $extension = new FOSRestExtension();
         $extension->load([], $this->container);
@@ -492,19 +490,19 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->hasDefinition('fos_rest.fos_rest.error_listener'));
     }
 
-    public function testGetConfiguration()
+    public function testGetConfiguration(): void
     {
         $configuration = $this->extension->getConfiguration([], $this->container);
 
         $this->assertInstanceOf(Configuration::class, $configuration);
     }
 
-    private function assertAlias($value, $key)
+    private function assertAlias(string $value, string $key): void
     {
         $this->assertEquals($value, (string) $this->container->getAlias($key), sprintf('%s alias is correct', $key));
     }
 
-    public function testCheckViewHandlerWithJsonp()
+    public function testCheckViewHandlerWithJsonp(): void
     {
         $this->extension->load([
             'fos_rest' => [
@@ -521,7 +519,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertInstanceOf(ChildDefinition::class, $viewHandler);
     }
 
-    public function testZoneMatcherListenerDefault()
+    public function testZoneMatcherListenerDefault(): void
     {
         $this->extension->load([
             'fos_rest' => [],
@@ -530,7 +528,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->has('fos_rest.zone_matcher_listener'));
     }
 
-    public function testZoneMatcherListener()
+    public function testZoneMatcherListener(): void
     {
         $config = ['fos_rest' => [
             'zone' => [
@@ -574,7 +572,7 @@ class FOSRestExtensionTest extends TestCase
         }
     }
 
-    public function testMimeTypesArePassedArrays()
+    public function testMimeTypesArePassedArrays(): void
     {
         $config = [
             'fos_rest' => [
@@ -599,7 +597,7 @@ class FOSRestExtensionTest extends TestCase
         );
     }
 
-    public function testSerializerErrorRendererNotRegisteredByDefault()
+    public function testSerializerErrorRendererNotRegisteredByDefault(): void
     {
         $config = [
             'fos_rest' => [],
@@ -610,7 +608,7 @@ class FOSRestExtensionTest extends TestCase
         $this->assertFalse($this->container->hasAlias('error_renderer'));
     }
 
-    public function testRegisterSerializerErrorRenderer()
+    public function testRegisterSerializerErrorRenderer(): void
     {
         if (!interface_exists(ErrorRendererInterface::class)) {
             $this->markTestSkipped();
